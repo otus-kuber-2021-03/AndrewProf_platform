@@ -1,16 +1,9 @@
 FROM nginx:latest
-ARG USERID=1001
 
-RUN mkdir /app
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY app /app
+WORKDIR /app
 
-RUN chown -R ${USERID}:${USERID} /app && chmod -R 755 /app
-RUN chown -R ${USERID}:${USERID} /etc/nginx/conf.d
-RUN chown -R ${USERID}:${USERID} /var/cache/nginx
-RUN chown -R ${USERID}:${USERID} /var/log/nginx
-RUN touch /var/run/nginx.pid && \
-    chown -R ${USERID}:${USERID} /var/run/nginx.pid
+ADD . .
 
-USER ${USERID}:${USERID}
+ADD default.conf /etc/nginx/conf.d/default.conf
+
 EXPOSE 8000
