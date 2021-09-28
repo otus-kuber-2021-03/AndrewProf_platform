@@ -2,7 +2,7 @@
 $ helm status consul
 ---------------------------------------
 NAME: consul
-LAST DEPLOYED: Fri Sep 28 08:24:31 2021
+LAST DEPLOYED: Fri Sep 24 06:24:31 2021
 NAMESPACE: default
 STATUS: deployed
 REVISION: 1
@@ -26,7 +26,7 @@ To learn more about the release, run:
 $ helm status vault
 ------------------------------------------
 NAME: vault
-LAST DEPLOYED: Fri Sep 28 08:28:12 2021
+LAST DEPLOYED: Fri Sep 24 06:28:12 2021
 NAMESPACE: default
 STATUS: deployed
 REVISION: 1
@@ -37,7 +37,6 @@ Now that you have deployed Vault, you should look over the docs on using
 Vault with Kubernetes available here:
 
 https://www.vaultproject.io/docs/
-
 
 
 Your release is named vault. To learn more about the release, try:
@@ -69,7 +68,7 @@ Cluster ID      0cda26c1-2483-8680-182e-6046dc375069
 HA Enabled      true
 HA Cluster      https://vault-0.vault-internal:8201
 HA Mode         active
-Active Since    2021-09-28T11:34:21.889814147Z
+Active Since    2021-09-24T13:34:21.889814147Z
 
 ----------------------------------------------------------------------------------------------------------------
 $ kubectl exec -it vault-1  -- vault operator unseal 'Qz4uRSdj0R2+dcIlJRUXevICZ/BqOvcKHOrsVfwoi5E='
@@ -173,6 +172,9 @@ $ kubectl exec -it vault-0 -- vault write auth/kubernetes/role/otus \
 > bound_service_account_namespaces=default policies=otus-policy ttl=24h
 ----------------------------------------------------------------------------------------------------------------
 Success! Data written to: auth/kubernetes/role/otus
+
+
+!!!! Так как otus/otus-rw имеет разрешение create мы можем записать otus-rw/config1, но otusrw/config уже существует, а на изменение разрешения нет. Для разрешения внесения изменения необзодимо добавить разрешение update
 
 ----------------------------------------------------------------------------------------------------------------
 $ kubectl exec -it vault-0 -- vault write pki_int/issue/example-dot-ru common_name="gitlab.example.ru" ttl="24h"
@@ -279,4 +281,4 @@ $ kubectl exec -it vault-0 -- vault write pki_int/revoke serial_number="31:11:12
 Key                        Value
 ---                        -----
 revocation_time            1632571864
-revocation_time_rfc3339    2021-09-28T12:11:04.730076071Z
+revocation_time_rfc3339    2021-09-25T12:11:04.730076071Z
