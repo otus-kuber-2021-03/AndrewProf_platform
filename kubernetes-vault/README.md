@@ -39,7 +39,6 @@ Vault with Kubernetes available here:
 https://www.vaultproject.io/docs/
 
 
-
 Your release is named vault. To learn more about the release, try:
 
   $ helm status vault
